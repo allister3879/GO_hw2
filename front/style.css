@@ -133,15 +133,3 @@ body {
 .conditionals a {
     color: rgb(253, 237, 21);
 }
-
-
-
-.white-icons::-webkit-calendar-picker-indicator {
-    filter: invert(100%); 
-}
-
-.white-icons::-webkit-inner-spin-button,
-.white-icons::-webkit-outer-spin-button {
-    color: white; 
-}
-
