@@ -79,17 +79,38 @@ func crudHandler(w http.ResponseWriter, r *http.Request) {
 				Client  appointmentInfo
 			}{Success: true, Message: "Inserted", Client: insertedClient})
 		}
-	} else if r.FormValue("submit") == "Update" {
-
-	} else if r.FormValue("submit") == "Delete" {
-
 	}
+	// else if r.FormValue("submit") == "Update" {
+
+	// } else if r.FormValue("submit") == "Delete" {
+
+	// }
 
 	fmt.Println(client)
 }
 
+func deleteHandler(w http.ResponseWriter, r *http.Request) {
+	db = getMySQLDB()
+
+	if r.Method != http.MethodPost {
+		http.Error(w, "Method not allowed", http.StatusMethodNotAllowed)
+		return
+	}
+
+	appointmentID := r.FormValue("appointment_id")
+	_, err := db.Exec("DELETE FROM appointments WHERE id=?", appointmentID)
+
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+		return
+	}
+
+	http.Redirect(w, r, "/", http.StatusSeeOther)
+}
+
 func main() {
 	http.HandleFunc("/", crudHandler)
+	http.HandleFunc("/delete", deleteHandler)
 	http.ListenAndServe(":8181", nil)
 	fmt.Println("Server running on :8181")
 }

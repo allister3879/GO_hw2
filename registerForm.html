@@ -128,8 +128,9 @@ body {
 <body>
     {{if .Success}}
     <div class="wrapper">
-        <form method="POST" action="/">
+        <form method="POST" action="/delete">
             <div class="container-fluid">
+                <input type="hidden" name="appointment_id" value="{{.Client.Id}}">
                 <div class="row">
                     <div class="col-sm-12 col-md-12 col-lg-12">
                         <h3>Appointment inserted!</h3>
@@ -164,7 +165,6 @@ body {
                         <h3>SPA REGISTRATION FORM</h3>
                     </div>
                 </div>
-
                 <div class="row">
                     <div class="col-sm-1 col-md-1 col-lg-1">
                         <label for="phone">Phone:</label>
