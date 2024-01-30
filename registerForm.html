@@ -148,8 +148,17 @@ body {
                 </div>
                 {{end}}
                 <div class="row">
-                    <div class="col-sm-12 col-md-12 col-lg-12">
+                    <div class="col-sm-12 col-md-6 col-lg-6">
                         <button id="submitButton" type="submit" name="submit" value="Delete">Delete appointment</button>
+                    </div>
+                    <div class="col-sm-12 col-md-6 col-lg-6">
+                        <button id="submitButton" type="submit" name="submit" value="Update">Update Comment</button>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-12 col-md-12 col-lg-12 room">
+                        <input type="text" placeholder="New Comment" name="new_comment">
+                        <input type="hidden" name="appointment_id" value="{{.Client.Id}}">
                     </div>
                 </div>
             </div>

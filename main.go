@@ -80,11 +80,6 @@ func crudHandler(w http.ResponseWriter, r *http.Request) {
 			}{Success: true, Message: "Inserted", Client: insertedClient})
 		}
 	}
-	// else if r.FormValue("submit") == "Update" {
-
-	// } else if r.FormValue("submit") == "Delete" {
-
-	// }
 
 	fmt.Println(client)
 }
@@ -97,15 +92,42 @@ func deleteHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	appointmentID := r.FormValue("appointment_id")
-	_, err := db.Exec("DELETE FROM appointments WHERE id=?", appointmentID)
+	if r.FormValue("submit") == "Delete" {
+		appointmentID := r.FormValue("appointment_id")
+		_, err := db.Exec("DELETE FROM appointments WHERE id=?", appointmentID)
 
-	if err != nil {
-		http.Error(w, err.Error(), http.StatusInternalServerError)
-		return
+		if err != nil {
+			http.Error(w, err.Error(), http.StatusInternalServerError)
+			return
+		}
+
+		http.Redirect(w, r, "/", http.StatusSeeOther)
+	} else if r.FormValue("submit") == "Update" {
+		appointmentID := r.FormValue("appointment_id")
+		newComment := r.FormValue("new_comment")
+
+		_, err := db.Exec("UPDATE appointments SET comment=? WHERE id=?", newComment, appointmentID)
+
+		if err != nil {
+			http.Error(w, err.Error(), http.StatusInternalServerError)
+			return
+		}
+
+		row := db.QueryRow("SELECT * FROM appointments WHERE id=?", appointmentID)
+		var updatedClient appointmentInfo
+		err = row.Scan(&updatedClient.Id, &updatedClient.Phone, &updatedClient.Fio, &updatedClient.Code, &updatedClient.Comment)
+
+		if err != nil {
+			http.Error(w, err.Error(), http.StatusInternalServerError)
+			return
+		}
+
+		tmpl.Execute(w, struct {
+			Success bool
+			Message string
+			Client  appointmentInfo
+		}{Success: true, Message: "Updated", Client: updatedClient})
 	}
-
-	http.Redirect(w, r, "/", http.StatusSeeOther)
 }
 
 func main() {
