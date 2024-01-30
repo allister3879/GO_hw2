@@ -33,8 +33,9 @@ The purpose of our project is to create a user-friendly spa registration form th
 - Maratov Aldiyar
 
 ### Screenshots
-![image](https://github.com/allister3879/GO_hw2/assets/129583359/ff48f9dc-aa89-427c-9743-4f87d938833b)
+![image](https://github.com/allister3879/GO_hw2/assets/129583359/439eee3c-5284-4715-ae0b-ff36db5826d7)
 
+![image](https://github.com/allister3879/GO_hw2/assets/129583359/9ce59c0c-8f6c-4644-bcc0-b013659c4225)
 
 
 ### Step-by-step instructions for launching the application:
